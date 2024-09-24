@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: stg_aircrafts
+    columns:
+      - name: aircraft_code
+        tests:
+          - not null

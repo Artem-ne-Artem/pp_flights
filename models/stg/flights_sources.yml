@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: flights
+    database: default_db
+    schema: bookings
+    tables:
+      - name: aircrafts_data
+      - name: airports_data
