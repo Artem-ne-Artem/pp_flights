@@ -41,8 +41,10 @@ models:
       +materialized: table    
     cdm:
       +materialized: table
+      schema: cdm
     rep:
       +materialized: table
+      schema: rep
     stg:
       +materialized: view
       schema: stg
