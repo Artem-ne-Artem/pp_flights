@@ -2,7 +2,10 @@ version: 2
 
 models:
   - name: stg_airports
+    description: "Basic transformations for table airports"
     columns:
       - name: airport_code
+        description: "Unique airport IATA code"
         tests:
+          - unique
           - not_null

@@ -2,7 +2,10 @@ version: 2
 
 models:
   - name: stg_aircrafts
+    description: "Basic transformations for table aircrafts"
     columns:
       - name: aircraft_code
+        description: "Unique aircraft code"
         tests:
+          - unique
           - not null
