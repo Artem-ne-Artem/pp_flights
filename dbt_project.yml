@@ -37,10 +37,12 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   dbt_flights:
-    # Applies to all files under models/example/
+    example:
+      +materialized: table    
     cdm:
       +materialized: table
     rep:
       +materialized: table
-    staging:
+    stg:
       +materialized: view
+      schema: stg
