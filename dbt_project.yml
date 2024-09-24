@@ -42,6 +42,8 @@ models:
     cdm:
       +materialized: table
       schema: cdm
+      flights:
+        +materialized: view
     rep:
       +materialized: table
       schema: rep
