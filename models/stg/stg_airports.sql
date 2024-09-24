@@ -3,4 +3,4 @@ select		airport_code
 			,city ->> 'en' as city
 			,coordinates
 			,timezone
-from 		{{source('flights', 'airport_code')}}
+from 		{{source('flights', 'airports_data')}}

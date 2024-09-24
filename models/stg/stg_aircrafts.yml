@@ -8,4 +8,4 @@ models:
         description: "Unique aircraft code"
         tests:
           - unique
-          - not null
+          - not_null
