@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: flights
+    description: "Main mart with info about flights, tickets, booking"
+    columns:
+      - name: book_id
+        description: "not unique id"
+      - name: book_date
+        description: "book date timestamp"
+      - name: book_amount
+        description: "book amount currency"
+      - name: passenger_id
+        description: "not unique id"
+      - name: boarding_no
+        description: "boarding id, not unique id"
+      - name: flight_id
+        description: "hash flight number & scheduled departure, not unique id"
+      - name: flight_number
+        description: "flight number repeat every some days, not unique id"
+      - name: book_business_seats_per_flight_cnt
+        description: "number of seats booked in business class (on the flight)"
+      - name: book_seats_per_flight_cnt
+        description: "number of seats booked (on the flight) total"
+      - name: scheduled_duration
+        description: "in hours"
+      - name: seats_cnt
+        description: "number of seats on an airplane total"
+      - name: seats_business_cnt
+        description: "number of seats in business class on an airplane"
+      - name: range
+        description: "max flight range of an aircraft"

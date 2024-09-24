@@ -1,4 +1,3 @@
-/*
 with src_ticket_flights as (
     select * from {{ source('flights', 'ticket_flights') }}
 )
@@ -53,7 +52,7 @@ select
 			,a.model as aircraft_model
 			,a.seats_cnt
 			,a.seats_business_cnt
-			,a."range"
+			,a.range
 from 		src_ticket_flights as tf
 -- в flights есть рейсы которых нет в ticket_flights
 join 		src_flights as f
@@ -65,13 +64,9 @@ left join 	src_bookings as b
 left join 	src_boarding_passes as bp
 			on tf.ticket_no = bp.ticket_no
 			and tf.flight_id = bp.flight_id
-            
 left join 	{{ ref('stg_aircrafts') }} as a
 			on f.aircraft_code = a.aircraft_code
 left join 	{{ ref('stg_airports') }} as ap
 			on f.departure_airport = ap.airport_code
 left join 	{{ ref('stg_airports') }} as ap2
 			on f.arrival_airport = ap2.airport_code
-*/
-
-select 1
