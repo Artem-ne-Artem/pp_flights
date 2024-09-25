@@ -47,6 +47,8 @@ models:
     rep:
       +materialized: table
       schema: rep
+      daily_stats:
+        +materialized: view
     stg:
       +materialized: view
       schema: stg
