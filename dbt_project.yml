@@ -37,18 +37,15 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   dbt_flights:
-    example:
-      +materialized: table    
     cdm:
       +materialized: table
+      +tags: "cdm"
       schema: cdm
-      flights:
-        +materialized: view
     rep:
       +materialized: table
+      +tags: "rep"
       schema: rep
-      daily_stats:
-        +materialized: view
     stg:
       +materialized: view
+      +tags: "stg"
       schema: stg
