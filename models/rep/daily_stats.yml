@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: daily_stats
+    description: "Report model with main daily stats"
+    columns:
+      - name: date
+        description: "event date, book or flight"
