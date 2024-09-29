@@ -11,9 +11,8 @@
 - Rep – layer for BI services
 
 [DBT project documentation](https://zb975.us1.dbt.com/accounts/70403103945566/runs/70403122813601/docs/#!/model/model.dbt_flights.flights)
-Visualization on Power BI
 
-[Flights_en.pdf](https://github.com/user-attachments/files/17180126/Flights_en.pdf)
+[Visualization on Power BI](https://github.com/user-attachments/files/17180126/Flights_en.pdf)
 
 
 #### Description database
