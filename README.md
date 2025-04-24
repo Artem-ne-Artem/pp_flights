@@ -14,6 +14,8 @@
 
 [Visualization on Power BI](https://github.com/user-attachments/files/17180126/Flights_en.pdf)
 
+[//]: # (This is a comment.)
+[//]: # (This is a comment on a new line.)
 
 #### Description database
 A single booking can include multiple tickets, one for each passenger, each of which is issued a separate ticket (tickets).
