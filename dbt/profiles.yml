@@ -1,0 +1,18 @@
+# Имя профиля. Должно совпадать с profile в dbt_project.yml.
+dbt_flights:
+  # Целевая среда по умолчанию, которую dbt использует, если не указано явно через --target.
+  target: dev
+  # Секция, где перечисляются все возможные окружения (dev, prod, и т.д.). Каждое подокружение описывает, как подключаться к базе.
+  outputs:
+    # Названия окружений/targets. Они могут отличаться хостами, пользователями, схемами и т. д. Можно запускать конкретное окружение через dbt run --target prod
+    dev:
+      type: postgres
+      host: postgres_dwh
+      port: 5432
+      user: "{{ env_var('POSTGRES_DWH_USER') }}"
+      password: "{{ env_var('POSTGRES_DWH_PASSWORD') }}"
+      dbname: demo
+      # Базовая схема, используемая как префикс для моделей, если не переопределено в dbt_project.yml. Например: dev + +schema: stg → dev_stg
+      schema: bookings
+      # Количество потоков/parallelism для выполнения моделей. Обычно 2-8 для dev, можно больше для prod, если база тянет.
+      threads: 4

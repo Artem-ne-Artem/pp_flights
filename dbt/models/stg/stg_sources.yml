@@ -2,11 +2,11 @@ version: 2
 
 sources:
   - name: flights
-    database: default_db
+    database: demo
     schema: bookings
     tables:
-      - name: aircrafts_data
-      - name: airports_data
+      - name: aircrafts
+      - name: airports
       - name: boarding_passes
       - name: bookings
       - name: flights

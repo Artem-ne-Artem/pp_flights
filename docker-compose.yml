@@ -1,0 +1,54 @@
+services:
+
+  postgres_dwh:
+    image: postgres:14-alpine
+    container_name: flights_postgres_db_dwh
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_DWH_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_DWH_PASSWORD}
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_DWH_USER}"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  dbt:
+    build:
+      context: .
+    container_name: flights_dbt
+    working_dir: /usr/app/dbt
+    volumes:
+      - ./dbt:/usr/app/dbt                            # проект dbt
+      - ./.dbt:/root/.dbt                             # профили и конфиги
+      - dbt_packages_data:/usr/app/dbt/dbt_packages   # зависимости dbt как volume
+      - dbt_logs_data:/usr/app/dbt/logs               # логи dbt
+      - dbt_docs_data:/usr/app/dbt/target             # output для документации
+    environment:
+      POSTGRES_DWH_USER: ${POSTGRES_DWH_USER}
+      POSTGRES_DWH_PASSWORD: ${POSTGRES_DWH_PASSWORD}
+    depends_on:
+      postgres_dwh:
+        condition: service_healthy
+
+  dbt_docs_web_server:
+    image: nginx:alpine
+    container_name: flights_dbt_docs
+    volumes:
+      - dbt_docs_data:/usr/share/nginx/html
+    ports:
+      - "9091:80"
+    depends_on:
+      - dbt
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  dbt_docs_data:
+  dbt_logs_data:
+  dbt_packages_data:
