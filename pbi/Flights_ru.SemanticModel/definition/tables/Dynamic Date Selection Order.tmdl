@@ -1,0 +1,43 @@
+table 'Dynamic Date Selection Order'
+	lineageTag: 042b816b-f76f-420f-b661-b37375e094aa
+
+	column Type
+		lineageTag: f5ed7ad8-12dc-476a-bbd6-4a3f7affcf37
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Dynamic Date Selection[Type]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Axis date'
+		lineageTag: 6cf7eb5b-98c9-4393-91a9-890f3d60756f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Dynamic Date Selection[Axis date]
+		sortByColumn: Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order
+		formatString: 0
+		lineageTag: 0ec6e525-873c-4136-8330-100f0d10cba5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dynamic Date Selection Order' = calculated
+		mode: import
+		source =
+				
+				SUMMARIZE(
+				    'Dynamic Date Selection'
+				    ,'Dynamic Date Selection'[Type]
+				    ,'Dynamic Date Selection'[Axis Date]
+				    ,"Order"
+				    ,MAX('Dynamic Date Selection'[Order_date])
+				)
+
+	annotation PBI_Id = d34577f797a14cd1a0e4fdd13ef1d154
+

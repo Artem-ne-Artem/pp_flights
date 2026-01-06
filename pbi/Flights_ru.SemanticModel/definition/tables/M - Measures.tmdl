@@ -1,0 +1,327 @@
+table 'M - Measures'
+	lineageTag: 50331e17-2255-41bf-8f50-08fe2937f616
+
+	measure 'Tickets cnt' = SUM('Q - Pre booking'[ticket_cnt])
+		formatString: #,0
+		displayFolder: Pre booking
+		lineageTag: 7efc2101-db3a-436e-bfeb-4f2f7b66b195
+
+	measure 'Occupancy business' = DIVIDE([Avg boarding business seats per flight], [Seats business cnt])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Occupancy
+		lineageTag: 1f9d5446-516f-4027-ac96-d069e33c8a96
+
+	measure Occupancy =
+			
+			// var v_seats_boarding = SUM('Q - Occupancy'[seats_cnt_boarding])
+			// var v_seats = SUM('Q - Occupancy'[seats_cnt])
+			// var v_flight = SUM('Q - Occupancy'[flight_cnt])
+			// var v_seats_boarding_per_flight = DIVIDE(v_seats_boarding, v_flight)
+			// return
+			//     DIVIDE(v_seats_boarding_per_fligh t ,v_seats)
+			DIVIDE([Avg boarding seats per flight], [Seats cnt])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Occupancy
+		lineageTag: e73230fc-129d-4312-98f7-df37a1148f15
+
+	measure 'Avg boarding seats per flight' =
+			
+			// В сред занятых мест на 1 рейс
+			
+			// var v_seats_boarding = SUM('Q - Occupancy'[seats_cnt_boarding])
+			// var v_seats = SUM('Q - Occupancy'[seats_cnt])
+			// var v_flight = SUM('Q - Occupancy'[flight_cnt])
+			// var v_seats_boarding_per_flight = DIVIDE(v_seats_boarding, v_flight)
+			// return
+			//     DIVIDE(v_seats_boarding_per_flight ,v_seats)
+			// SUMX(v_seats_boarding_per_flight) / SUMX(v_seats)
+			// SUMX('Q - Occupancy', [seats_cnt_boarding] / [flight_cnt])
+			
+			DIVIDE([Seats boarding cnt] ,[Flight cnt])
+		formatString: #,0.0
+		displayFolder: Occupancy
+		lineageTag: 783baef1-bc8f-4131-9178-8f1cf557f3ee
+
+	measure 'Seats boarding cnt' = SUM('Q - Occupancy'[seats_cnt_boarding])
+		formatString: #,0
+		displayFolder: Occupancy
+		lineageTag: 1adbc1b5-ae5d-44d9-9f51-2fda17ec2739
+
+	measure 'Flight cnt' = SUM('Q - Occupancy'[flight_cnt])
+		formatString: #,0
+		displayFolder: Occupancy
+		lineageTag: 128a368a-3299-48bb-8d9f-b3fbaa3c47b2
+
+	measure 'Seats cnt' =
+			
+			// SUM('Q - Occupancy'[seats_cnt])
+			AVERAGE('Q - Occupancy'[seats_cnt])
+		formatString: #,0
+		displayFolder: Occupancy
+		lineageTag: 39df2506-ec7a-4ad9-a48b-cb244b4b8161
+
+	measure 'Seats business cnt' =
+			
+			CALCULATE(
+			    AVERAGE('Q - Occupancy'[seats_business_cnt])
+			    ,'Q - Occupancy'[seats_business_cnt] > 0
+			)
+		formatString: #,0
+		displayFolder: Occupancy
+		lineageTag: 51a569f5-f9ca-4a8b-b21f-c03e28a1ead9
+
+	measure 'Seats boarding business cnt' = SUM('Q - Occupancy'[seats_business_cnt_boarding])
+		formatString: #,0
+		displayFolder: Occupancy
+		lineageTag: 292ea79d-22e6-46d9-a0cd-c19767551f97
+
+	measure 'Avg boarding business seats per flight' =
+			
+			// В сред занятых мест на 1 рейс
+			// var v_seats_boarding = SUM('Q - Occupancy'[seats_cnt_boarding])
+			// var v_seats = SUM('Q - Occupancy'[seats_cnt])
+			// var v_flight = SUM('Q - Occupancy'[flight_cnt])
+			// var v_seats_boarding_per_flight = DIVIDE(v_seats_boarding, v_flight)
+			// return
+			    // DIVIDE(v_seats_boarding_per_flight ,v_seats)
+			// SUMX(v_seats_boarding_per_flight) / SUMX(v_seats)
+			// SUMX('Q - Occupancy', [seats_cnt_boarding] / [flight_cnt])
+			
+			DIVIDE([Seats boarding business cnt] ,[Flight business cnt])
+		displayFolder: Occupancy
+		lineageTag: 89e4c7b3-3fe0-4d94-be79-9cdacf4ef6ff
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Flight business cnt' =
+			
+			CALCULATE(
+			    SUM('Q - Occupancy'[flight_cnt])
+			    ,'Q - Occupancy'[seats_business_cnt] > 0
+			)
+		formatString: #,0
+		displayFolder: Occupancy
+		lineageTag: 0f2f29ef-4649-4736-9700-2f4d0efb86f2
+
+	measure 'Flight share' = ```
+			
+			var v_total = 
+			    CALCULATE(
+			        SUM('Q - Occupancy'[flight_cnt])
+			        ,ALL()
+			    )
+			RETURN
+			    DIVIDE([Flight cnt] ,v_total)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Occupancy
+		lineageTag: e013ef88-c80f-40b0-878e-2cee56f4fcdf
+
+	measure 'City chart name' = "Загрузка рейса по городу " & LOWER(MAX('P - City'[P - City])) & "а"
+		displayFolder: Occupancy
+		lineageTag: b1c42b64-c3a6-4fd1-b8e3-f2fa30ccf607
+
+	measure 'Book amount' = SUM('Q - Daily stats'[book_amount])
+		formatString: #,0
+		displayFolder: Daily stats
+		lineageTag: 53479f63-5bba-4c88-96eb-f42b23c8f798
+
+	measure 'Flights amount' = SUM('Q - Daily stats'[flights_amount])
+		formatString: #,0
+		displayFolder: Daily stats
+		lineageTag: c82daba9-484b-4e70-95c0-141a4df16fc0
+
+	measure 'Book cnt' = SUM('Q - Daily stats'[book_cnt])
+		formatString: #,0
+		displayFolder: Daily stats
+		lineageTag: 438705ca-2332-4f2c-ae1d-bbb89383671f
+
+	measure 'Flights cnt' = SUM('Q - Daily stats'[flights_cnt])
+		formatString: #,0
+		displayFolder: Daily stats
+		lineageTag: f78ae0ef-bf7b-45a0-8955-70c703d2362d
+
+	measure 'Book one amount' = SUM('Q - Daily stats'[book_one_passenger_amount])
+		formatString: #,0
+		displayFolder: Daily stats
+		lineageTag: 1bd7091b-a1a4-4861-b903-f0a49b63e6fa
+
+	measure 'Book several amount' = SUM('Q - Daily stats'[book_several_passenger_amount])
+		formatString: #,0
+		displayFolder: Daily stats
+		lineageTag: a97df8ec-f02e-4338-9504-e18468d55fab
+
+	measure 'Book several cnt' = SUM('Q - Daily stats'[book_several_passenger_cnt])
+		formatString: #,0
+		displayFolder: Daily stats
+		lineageTag: 387e27a8-696f-40da-a8b9-e4d226bd99ca
+
+	measure 'Book one cnt' = SUM('Q - Daily stats'[book_one_passenger_cnt])
+		formatString: #,0
+		displayFolder: Daily stats
+		lineageTag: 6b0755c9-933e-41ef-a84d-ffcbe6367bf4
+
+	measure 'Book one avg' = DIVIDE([Book one amount], [Book one cnt])
+		formatString: #,0
+		displayFolder: Daily stats
+		lineageTag: 722cadb6-2a23-4180-9e4f-2d1296b90401
+
+	measure 'Book several avg' = DIVIDE([Book several amount], [Book several cnt])
+		formatString: #,0
+		displayFolder: Daily stats
+		lineageTag: 316f33b0-aa7d-4b06-88f3-b59ffa3d6731
+
+	measure 'Book avg' = DIVIDE([Book amount], [Book cnt])
+		formatString: #,0
+		displayFolder: Daily stats
+		lineageTag: 2d76ce82-8cb7-40f3-8adf-9c99b8f0ef4e
+
+	measure 'Books one cnt share' = DIVIDE([Book one cnt], [Book cnt])
+		formatString: 0.000%;-0.000%;0.000%
+		displayFolder: Daily stats
+		lineageTag: c7776a0c-3d0d-4ea8-affb-2ffc2c325112
+
+	measure 'Book amount per day' =
+			
+			IF(
+			    ISBLANK(DIVIDE([Book amount], [Days cnt]))
+			    ,0
+			    ,DIVIDE([Book amount], [Days cnt])
+			)
+		formatString: #,0
+		displayFolder: Daily stats
+		lineageTag: d7b7cf77-30e1-44e5-8b0d-75e6b26d9985
+
+	measure 'Days cnt' = count('Q - Daily stats'[date])
+		formatString: #,0
+		displayFolder: Daily stats
+		lineageTag: d45e2efb-3404-4b5e-814b-6e7a6295f343
+
+	measure 'Book cnt per day' =
+			
+			IF(
+			    ISBLANK(DIVIDE([Book cnt], [Days cnt]))
+			    ,0
+			    ,DIVIDE([Book cnt], [Days cnt])
+			)
+		formatString: #,0
+		displayFolder: Daily stats
+		lineageTag: 3a61b345-d583-4894-a0d8-54344041d0ae
+
+	measure 'Flights cnt per day' =
+			
+			IF(
+			    ISBLANK(DIVIDE([Flight cnt], [Days cnt]))
+			    ,0
+			    ,DIVIDE([Flight cnt], [Days cnt])
+			)
+		formatString: #,0
+		displayFolder: Daily stats
+		lineageTag: 498856f6-3dda-4491-9af4-f925d3f61536
+
+	measure 'Previous measure' =
+			
+			VAR mydate = SELECTEDVALUE('C - Calendar'[Date])
+			VAR myweek = SELECTEDVALUE('C - Calendar'[Week Start Date])
+			VAR mymonth = SELECTEDVALUE('C - Calendar'[Month Date])
+			VAR myyear = SELECTEDVALUE('C - Calendar'[Year Date])
+			VAR previous_date = CALCULATE(MAX('C - Calendar'[Date]),  ALLCROSSFILTERED('C - Calendar'), 'C - Calendar'[Date] < mydate)
+			VAR previous_week = CALCULATE(MAX('C - Calendar'[Week Start Date]), ALLCROSSFILTERED('C - Calendar'), 'C - Calendar'[Week Start Date] < myweek)
+			VAR previous_month = CALCULATE(MAX('C - Calendar'[Month Date]), ALLCROSSFILTERED('C - Calendar'), 'C - Calendar'[Month Date] < mymonth)
+			VAR previous_year = CALCULATE(MAX('C - Calendar'[Year Date]), ALLCROSSFILTERED('C - Calendar'), 'C - Calendar'[Year Date] < myyear)
+			VAR sw_calculation =
+			SWITCH(
+			    SELECTEDVALUE('Dynamic Date Selection Order'[Type], 1)
+			    ,"День", CALCULATE([Selected measure], ALLCROSSFILTERED('C - Calendar'), 'C - Calendar'[Date] = previous_date)
+			    ,"Неделя", CALCULATE([Selected measure], ALLCROSSFILTERED('C - Calendar'), 'C - Calendar'[Week Start Date] = previous_week)
+			    ,"Месяц", CALCULATE([Selected measure], ALLCROSSFILTERED('C - Calendar'), 'C - Calendar'[Month Date] = previous_month)
+			    ,"Год", CALCULATE([Selected measure], ALLCROSSFILTERED('C - Calendar'), 'C - Calendar'[Year Date] = previous_year)
+			)
+			return sw_calculation
+		formatString: #,0.00
+		displayFolder: Daily stats
+		lineageTag: 8360f760-0615-4c18-8723-0aa649aaf4e5
+
+	measure 'Selected measure' =
+			
+			SWITCH(
+			    SELECTEDVALUE('D - Metrics name'[ID] ,1)
+			    ,1 ,[Book cnt]
+			    ,2 ,[Book amount]
+			    ,3 ,[Book avg]
+			    ,4 ,[Flights cnt]
+			    ,5 ,[Books one cnt share]
+			)
+		displayFolder: Daily stats
+		lineageTag: 7235d6c3-c6fb-42e6-a8cf-c96c238a3579
+
+		formatStringDefinition =
+				SWITCH(
+				        SELECTEDVALUE('D - Metrics name'[ID] ,1)
+				        ,1, "#,0"
+				        ,2, "#,0"
+				        ,3, "#,0"
+				        ,4, "#,0"
+				        ,5, "#0.0%"
+				    )
+
+	measure DateAdd =
+			
+			DIVIDE(
+			    [Book cnt]
+			    ,CALCULATE(
+			        [Book cnt]
+			        ,DATEADD('C - Calendar'[Date], -1 ,DAY)
+			    )
+			) - 1
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Daily stats
+		lineageTag: 357a9bf8-17ce-4335-babd-39d9866e79be
+
+	measure Colors =
+			
+			IF(
+			    OR([Previous measure] = BLANK(), [Previous measure] = 0)
+			    ,"#ffffff"
+			    ,IF(
+			        [Selected measure] > [Previous measure]
+			        ,"#84dcc6"
+			        ,"#ffa69e"
+			    )
+			)
+		lineageTag: a8500f43-0b45-4c64-b263-955a7ca6ec59
+
+	measure 'Books one cnt share card' =
+			
+			IF(
+			    ISBLANK(DIVIDE([Book one cnt], [Book cnt]))
+			    ,0
+			    ,DIVIDE([Book one cnt], [Book cnt])
+			)
+		formatString: 0.000%;-0.000%;0.000%
+		displayFolder: Daily stats
+		lineageTag: 2fb4e231-89a2-4515-bfe5-a0bf32d01200
+
+	measure 'Book avg card' =
+			
+			IF(
+			    ISBLANK(DIVIDE([Book amount], [Book cnt]))
+			    ,0
+			    ,DIVIDE([Book amount], [Book cnt])
+			)
+		formatString: #,0.00
+		displayFolder: Daily stats
+		lineageTag: d3953875-8146-41b9-81b0-f59a824d1655
+
+	partition 'M - Measures' = m
+		mode: import
+		source =
+				let
+				    Источник = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Столбец1 = _t]),
+				    #"Измененный тип" = Table.TransformColumnTypes(Источник,{{"Столбец1", type text}}),
+				    #"Удаленные столбцы" = Table.RemoveColumns(#"Измененный тип",{"Столбец1"})
+				in
+				    #"Удаленные столбцы"
+
+	annotation PBI_ResultType = Table
+

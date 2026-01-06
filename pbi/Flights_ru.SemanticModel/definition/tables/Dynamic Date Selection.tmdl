@@ -1,0 +1,91 @@
+table 'Dynamic Date Selection'
+	lineageTag: 989a7253-d911-4f61-ad86-03777cde8ffa
+
+	column Date
+		formatString: Short Date
+		lineageTag: e7fe3f68-ceac-478c-98c1-871220226169
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Axis date'
+		lineageTag: 1df53ed1-0b1a-4e9d-ade7-41398d3c223d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Axis date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type
+		lineageTag: a2a61aa8-5827-4547-a22c-cbf343aef295
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Type]
+		sortByColumn: Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order
+		formatString: 0
+		lineageTag: 89bcac82-be4a-4723-bade-cf3c10328595
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order_date =
+			
+			RANKX(
+			    'Dynamic Date Selection'
+			    ,'Dynamic Date Selection'[Date]
+			    ,,ASC
+			    ,Dense
+			) + 'Dynamic Date Selection'[Order]
+		formatString: 0
+		lineageTag: 5cb7934a-b7f8-473b-af01-404a2f4df9c7
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dynamic Date Selection' = calculated
+		mode: import
+		source =
+				
+				SELECTCOLUMNS(
+				    UNION(
+				        ADDCOLUMNS(
+				            'C - Calendar'
+				            ,"Axis date" ,FORMAT([Date], "dd.mm")
+				            ,"Type" ,"День"
+				            ,"Order" ,1
+				        )
+				        ,ADDCOLUMNS(
+				            'C - Calendar'
+				            ,"Axis date" ,FORMAT([Date] - WEEKDAY([Date], 2) + 1, "dd.mm") & " - " & FORMAT([Date] - WEEKDAY([Date], 2) + 7, "dd.mm")
+				            ,"Type" ,"Неделя"
+				            ,"Order" ,2
+				        )
+				        ,ADDCOLUMNS(
+				            'C - Calendar'
+				            ,"Axis date" ,FORMAT([Date], "mm.yy")
+				            ,"Type" ,"Месяц"
+				            ,"Order" ,3
+				        )
+				        ,ADDCOLUMNS(
+				            'C - Calendar'
+				            ,"Axis date" ,YEAR([Date])
+				            ,"Type" ,"Год"
+				            ,"Order" ,4
+				        )
+				    )
+				    ,"Date" ,[Date]
+				    ,"Axis date" ,[Axis date]
+				    ,"Type" ,[Type]
+				    ,"Order" ,[Order]
+				)
+
+	annotation PBI_Id = 922d3477a9fb405b866aaed735368581
+

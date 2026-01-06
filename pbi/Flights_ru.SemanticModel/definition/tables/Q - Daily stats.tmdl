@@ -1,0 +1,124 @@
+table 'Q - Daily stats'
+	lineageTag: 9ce95fbe-c799-4ee2-bdc2-061198615c98
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d23c80f1-b68d-4d66-be51-ee61128556b4
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column book_one_passenger_cnt
+		dataType: double
+		lineageTag: 2048a1fd-b43d-48bd-9a04-7dbebf9464d9
+		summarizeBy: sum
+		sourceColumn: book_one_passenger_cnt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column book_one_passenger_amount
+		dataType: double
+		lineageTag: 9d56fc0a-6431-4c46-aad8-9d41388ad139
+		summarizeBy: sum
+		sourceColumn: book_one_passenger_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column book_several_passenger_cnt
+		dataType: double
+		lineageTag: 99c54491-d885-40a7-b241-ca976af5c829
+		summarizeBy: sum
+		sourceColumn: book_several_passenger_cnt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column book_several_passenger_amount
+		dataType: double
+		lineageTag: b32e3513-91f1-43b4-8151-1386d3ed5a4c
+		summarizeBy: sum
+		sourceColumn: book_several_passenger_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column book_cnt
+		dataType: double
+		lineageTag: efa72414-8001-4e56-9712-7e6c2007f7c2
+		summarizeBy: sum
+		sourceColumn: book_cnt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column book_amount
+		dataType: double
+		lineageTag: 6dfc4957-47ee-415a-868a-2d8bbc5d4c21
+		summarizeBy: sum
+		sourceColumn: book_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column flights_cnt
+		dataType: double
+		lineageTag: 14d3ddbd-a440-484d-b5b7-40641209838f
+		summarizeBy: sum
+		sourceColumn: flights_cnt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column flights_amount
+		dataType: double
+		lineageTag: 60287c5f-4ee3-4213-82b6-a68d4b1b645a
+		summarizeBy: sum
+		sourceColumn: flights_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tickets_cnt
+		dataType: double
+		lineageTag: 130108ab-3b98-46d1-9b13-3a0f3ca21825
+		summarizeBy: sum
+		sourceColumn: tickets_cnt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Q - Daily stats' = m
+		mode: import
+		source =
+				// let
+				//     Источник = PostgreSQL.Database("localhost", "flights"),
+				//     rep_bookings_pre_booking = Источник{[Schema="rep_bookings",Item="daily_stats"]}[Data]
+				// in
+				//     rep_bookings_pre_booking
+				
+				
+				let
+				    Источник = PostgreSQL.Database("194.87.190.4:5432", "default_db"),
+				    dbt_rep_daily_stats = Источник{[Schema="dbt_rep",Item="daily_stats"]}[Data]
+				in
+				    dbt_rep_daily_stats
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Table
+

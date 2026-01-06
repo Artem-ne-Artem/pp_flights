@@ -1,0 +1,15 @@
+relationship 41cf4232-8dd0-fb8f-5c40-a85d64816300
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Q - Daily stats'.date
+	toColumn: 'C - Calendar'.Date
+
+relationship ee5dedea-040c-ec75-151a-9eaca6a3ad63
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Dynamic Date Selection'.Date
+	toColumn: 'C - Calendar'.Date
+
+relationship 38229750-2bb6-1204-67f7-6689394a26e0
+	fromColumn: 'Dynamic Date Selection'.'Axis date'
+	toColumn: 'Dynamic Date Selection Order'.'Axis date'
+

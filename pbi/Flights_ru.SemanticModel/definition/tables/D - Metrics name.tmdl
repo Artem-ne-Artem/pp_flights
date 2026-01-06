@@ -1,0 +1,38 @@
+table 'D - Metrics name'
+	lineageTag: e7bc2132-d71b-4162-b5dd-e785eaf3d046
+
+	column ID
+		formatString: 0
+		lineageTag: f837c751-255a-474f-a4d3-d15bb8e42a2b
+		summarizeBy: count
+		isNameInferred
+		sourceColumn: [ID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		lineageTag: 512620b8-fcce-464b-b553-41ee08d7fc7d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'D - Metrics name' = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "ID", INTEGER
+				    ,"Name", STRING
+				    ,{
+				        { 1,"Брони шт"}
+				        ,{ 2,"Брони сумма"}
+				        ,{ 3,"Брони сред. цена"}
+				        ,{ 4,"Полёты шт"}
+				        ,{ 5,"Доля броней для 1-го пассажира"}
+				    }
+				)
+
+	annotation PBI_Id = 6bc659fbcc164ded899dbf4dc7f05158
+

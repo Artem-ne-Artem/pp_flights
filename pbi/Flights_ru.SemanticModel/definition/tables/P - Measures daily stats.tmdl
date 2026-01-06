@@ -1,0 +1,48 @@
+table 'P - Measures daily stats'
+	lineageTag: 724026ee-5b1c-42e7-9f0b-a8b77fe80d19
+
+	column 'P - Measures daily stats'
+		lineageTag: bdac0b14-dc59-4189-a1a7-6dbc0b7632ae
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Заказ P - Measures daily stats'
+
+		relatedColumnDetails
+			groupByColumn: 'Поля: P - Measures daily stats'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Поля: P - Measures daily stats'
+		isHidden
+		lineageTag: 13c006c0-9d32-42ed-b06c-82b6226ebc13
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Заказ P - Measures daily stats'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Заказ P - Measures daily stats'
+		isHidden
+		formatString: 0
+		lineageTag: 4712cad4-24b7-4f8f-ad4e-daf201c4b8e5
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'P - Measures daily stats' = calculated
+		mode: import
+		source =
+				{
+				    ("Book avg", NAMEOF('M - Measures'[Book avg]), 0),
+				    ("Book amount", NAMEOF('M - Measures'[Book amount]), 1)
+				}
+
+	annotation PBI_Id = adab320e237248789aa5caa2157647d9
+

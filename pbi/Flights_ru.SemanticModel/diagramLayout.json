@@ -1,0 +1,205 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 248.34501595968732,
+        "y": 248.65654982094054
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 288.61667810945613,
+            "y": 0
+          },
+          "nodeIndex": "Update",
+          "nodeLineageTag": "7fd372e9-9ea0-4829-9aca-8ef42ed2ea61",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 9,
+          "expandedHeight": 104
+        },
+        {
+          "location": {
+            "x": 588.22332553931733,
+            "y": 0
+          },
+          "nodeIndex": "Q - Pre booking",
+          "nodeLineageTag": "63eb1998-3db1-4e96-b3aa-8358886004b4",
+          "size": {
+            "height": 347.5397391043997,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 894.52498428987508,
+            "y": 0
+          },
+          "nodeIndex": "Q - Occupancy",
+          "nodeLineageTag": "45a94bb9-6cc9-46a0-93a4-80bfd8859818",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 187.98845701306573
+          },
+          "nodeIndex": "P - City",
+          "nodeLineageTag": "9e4ba3e6-f5de-4226-bb83-6f0bac3a4370",
+          "size": {
+            "height": 72,
+            "width": 234
+          },
+          "zIndex": 6,
+          "expandedHeight": 152
+        },
+        {
+          "location": {
+            "x": 498.27678463217194,
+            "y": 439.44077643297845
+          },
+          "nodeIndex": "Q - Daily stats",
+          "nodeLineageTag": "9ce95fbe-c799-4ee2-bdc2-061198615c98",
+          "size": {
+            "height": 380.12669870647721,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 804.90127896976594,
+            "y": 434.67567583297387
+          },
+          "nodeIndex": "C - Calendar",
+          "nodeLineageTag": "fb71980b-96ae-4d29-b862-9a8b7a202a72",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 961.557061382686,
+            "y": 705.40931243295927
+          },
+          "nodeIndex": "Dynamic Date Selection",
+          "nodeLineageTag": "989a7253-d911-4f61-ad86-03777cde8ffa",
+          "size": {
+            "height": 208.5850034328368,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 1288.4820785468705,
+            "y": 815.58352315436548
+          },
+          "nodeIndex": "Dynamic Date Selection Order",
+          "nodeLineageTag": "042b816b-f76f-420f-b661-b37375e094aa",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 289.83720027274063
+          },
+          "nodeIndex": "M - Measures",
+          "size": {
+            "height": 72,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 104
+        },
+        {
+          "location": {
+            "x": 1572.4820785468705,
+            "y": 431.79176157718274
+          },
+          "nodeIndex": "P - Measures daily stats",
+          "nodeLineageTag": "724026ee-5b1c-42e7-9f0b-a8b77fe80d19",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "P - Measures occupancy",
+          "size": {
+            "height": 72,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 152
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 95.955419301991384
+          },
+          "nodeIndex": "P - Fields occupancy",
+          "size": {
+            "height": 72,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 152
+        },
+        {
+          "location": {
+            "x": 1856.4820785468705,
+            "y": 407.79176157718274
+          },
+          "nodeIndex": "D - Metrics name",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2140.4820785468705,
+            "y": 431.79176157718274
+          },
+          "nodeIndex": "P - Occupancy",
+          "nodeLineageTag": "546e93a6-a667-4498-83c8-0fdfd4aba5c1",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 69.889313929107516,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

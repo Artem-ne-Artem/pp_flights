@@ -1,0 +1,149 @@
+table 'Q - Occupancy'
+	lineageTag: 45a94bb9-6cc9-46a0-93a4-80bfd8859818
+
+	column flight_number
+		dataType: string
+		lineageTag: fb850c58-e751-461f-9995-f289b580cdde
+		summarizeBy: none
+		sourceColumn: flight_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column departure_city
+		dataType: string
+		lineageTag: 770e73bd-6a1a-4396-8636-92a52a9e9cbf
+		summarizeBy: none
+		sourceColumn: departure_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column arrival_city
+		dataType: string
+		lineageTag: 62f4c90b-2bcc-4d68-bb9f-5c3c6fb0fe67
+		summarizeBy: none
+		sourceColumn: arrival_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column departure_airport
+		dataType: string
+		lineageTag: cf55981a-ef81-4352-af73-28a5097b8524
+		summarizeBy: none
+		sourceColumn: departure_airport
+
+		annotation SummarizationSetBy = Automatic
+
+	column arrival_airport
+		dataType: string
+		lineageTag: 9b5eff88-fadb-4816-8dae-56cbbc639489
+		summarizeBy: none
+		sourceColumn: arrival_airport
+
+		annotation SummarizationSetBy = Automatic
+
+	column aircraft_model
+		dataType: string
+		lineageTag: 3f29b231-6db6-4cab-9de2-8c8130d9c7c8
+		summarizeBy: none
+		sourceColumn: aircraft_model
+
+		annotation SummarizationSetBy = Automatic
+
+	column seats_cnt
+		dataType: int64
+		formatString: 0
+		lineageTag: cacf1fb3-6685-4d60-ba3a-5ba5d9789eef
+		summarizeBy: sum
+		sourceColumn: seats_cnt
+
+		annotation SummarizationSetBy = Automatic
+
+	column seats_business_cnt
+		dataType: int64
+		formatString: 0
+		lineageTag: 1cf6e786-87b7-405a-bfd2-4e1f5d42c57d
+		summarizeBy: sum
+		sourceColumn: seats_business_cnt
+
+		annotation SummarizationSetBy = Automatic
+
+	column seats_cnt_boarding
+		dataType: int64
+		formatString: 0
+		lineageTag: 851f48b9-c85d-40b5-96d8-d2a084389ca3
+		summarizeBy: sum
+		sourceColumn: seats_cnt_boarding
+
+		annotation SummarizationSetBy = Automatic
+
+	column seats_business_cnt_boarding
+		dataType: int64
+		formatString: 0
+		lineageTag: 6d148def-d3a9-48fa-856b-e9b029bb629b
+		summarizeBy: sum
+		sourceColumn: seats_business_cnt_boarding
+
+		annotation SummarizationSetBy = Automatic
+
+	column flight_cnt
+		dataType: int64
+		formatString: 0
+		lineageTag: efe10896-1769-45d8-8e6a-dcc0607e9e1f
+		summarizeBy: sum
+		sourceColumn: flight_cnt
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is business' = if('Q - Occupancy'[seats_business_cnt] > 0 ,TRUE, FALSE)
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 9560b239-6909-4684-b288-b590b0a7a246
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column hour_scheduled_departure
+		dataType: double
+		formatString: #,0
+		lineageTag: 0e07cdb0-e472-4a1b-ba69-d67643c19f11
+		summarizeBy: sum
+		sourceColumn: hour_scheduled_departure
+
+		annotation SummarizationSetBy = Automatic
+
+	column hour_scheduled_arrival
+		dataType: double
+		formatString: 0
+		lineageTag: 4847621e-b6dc-4218-8aeb-7727287e1969
+		summarizeBy: sum
+		sourceColumn: hour_scheduled_arrival
+
+		annotation SummarizationSetBy = Automatic
+
+	column duration_hours
+		dataType: double
+		formatString: 0
+		lineageTag: 1a813d40-0225-4ff2-aa58-0da84c36b147
+		summarizeBy: sum
+		sourceColumn: duration_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Q - Occupancy' = m
+		mode: import
+		source =
+				// let
+				//     Источник = Value.NativeQuery(PostgreSQL.Database("localhost", "flights"), "select * from flights.rep_bookings.occupancy", null, [EnableFolding=true])
+				// in
+				//     Источник
+				
+				
+				let
+				    Источник = PostgreSQL.Database("194.87.190.4:5432", "default_db"),
+				    dbt_rep_occupancy = Источник{[Schema="dbt_rep",Item="occupancy"]}[Data]
+				in
+				    dbt_rep_occupancy
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Table
+

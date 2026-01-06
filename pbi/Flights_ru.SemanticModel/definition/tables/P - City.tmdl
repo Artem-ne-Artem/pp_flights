@@ -1,0 +1,48 @@
+table 'P - City'
+	lineageTag: 9e4ba3e6-f5de-4226-bb83-6f0bac3a4370
+
+	column 'P - City'
+		lineageTag: 98fa28b5-0694-4510-b94f-a6f8741488ef
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Заказ P - City'
+
+		relatedColumnDetails
+			groupByColumn: 'Поля: P - City'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Поля: P - City'
+		isHidden
+		lineageTag: 77b918e7-0ecb-4087-8d33-5b5ea4680a9e
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Заказ P - City'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Заказ P - City'
+		isHidden
+		formatString: 0
+		lineageTag: d9ba16ff-18ec-4f68-a53d-faff74489ec4
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'P - City' = calculated
+		mode: import
+		source =
+				{
+				    ("Вылет", NAMEOF('Q - Occupancy'[departure_city]), 0),
+				    ("Прилёт", NAMEOF('Q - Occupancy'[arrival_city]), 1)
+				}
+
+	annotation PBI_Id = 390bb87485804c559a72ae3f974d1e00
+

@@ -1,0 +1,56 @@
+table 'P - Fields occupancy'
+	lineageTag: 58a998ee-fa5d-4e09-b600-dd574da272fb
+
+	column 'P - Fields'
+		lineageTag: 24b8e94e-d1c5-4d16-8508-6f2331f68395
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Заказ P - Fields'
+
+		relatedColumnDetails
+			groupByColumn: 'Поля: P - Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Поля: P - Fields'
+		isHidden
+		lineageTag: 3c2671fe-909f-4374-a382-4bdf84f7cdc6
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Заказ P - Fields'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Заказ P - Fields'
+		isHidden
+		formatString: 0
+		lineageTag: c84f449b-5a2f-49b7-8282-491538a1650a
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'P - Fields occupancy' = calculated
+		mode: import
+		source =
+				{
+				    ("Номер рейса", NAMEOF('Q - Occupancy'[flight_number]), 0),
+				    ("Город вылета", NAMEOF('Q - Occupancy'[departure_city]), 1),
+				    ("Аэропорт вылета", NAMEOF('Q - Occupancy'[departure_airport]), 2),
+				    ("Город прилёта", NAMEOF('Q - Occupancy'[arrival_city]), 3),
+				    ("Аэропорт прилёта", NAMEOF('Q - Occupancy'[arrival_airport]), 4),
+				    ("Наличие Бизнес класса", NAMEOF('Q - Occupancy'[Is business]), 5),
+				    ("Модель самолёта", NAMEOF('Q - Occupancy'[aircraft_model]), 6),
+				    ("Длительность полёта (часов)", NAMEOF('Q - Occupancy'[duration_hours]), 7),
+				    ("Часы планового прилёта", NAMEOF('Q - Occupancy'[hour_scheduled_arrival]), 8),
+				    ("Часы планового вылета", NAMEOF('Q - Occupancy'[hour_scheduled_departure]), 9)
+				}
+
+	annotation PBI_Id = f3fafa4015fa4d9a9777fce3e3482124
+

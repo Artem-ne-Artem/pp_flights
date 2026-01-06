@@ -1,0 +1,25 @@
+table Update
+	lineageTag: 7fd372e9-9ea0-4829-9aca-8ef42ed2ea61
+
+	column now
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5e926e83-10b0-40b6-821d-6c1f72d7b565
+		summarizeBy: none
+		sourceColumn: now
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Update = m
+		mode: import
+		source =
+				let
+				    Источник = Value.NativeQuery(PostgreSQL.Database("localhost", "flights"), "select now()", null, [EnableFolding=true]),
+				    #"Измененный тип" = Table.TransformColumnTypes(Источник,{{"now", type datetime}})
+				in
+				    #"Измененный тип"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Навигация
+

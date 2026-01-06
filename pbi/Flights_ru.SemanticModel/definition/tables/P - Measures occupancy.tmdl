@@ -1,0 +1,55 @@
+table 'P - Measures occupancy'
+	lineageTag: d2bbd9c7-9b55-45fb-821a-6e58b6d274ad
+
+	column 'P - Measures'
+		lineageTag: 9e88fe84-641e-436c-829a-80d8ae1cddf2
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Заказ P - Measures'
+
+		relatedColumnDetails
+			groupByColumn: 'Поля: P - Measures'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Поля: P - Measures'
+		isHidden
+		lineageTag: fd962cc5-3689-4181-a9ec-56d02037ee03
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Заказ P - Measures'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Заказ P - Measures'
+		isHidden
+		formatString: 0
+		lineageTag: 889e6536-e829-49ce-91a4-af1ea2847b06
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'P - Measures occupancy' = calculated
+		mode: import
+		source =
+				{
+				    ("Загрузка салона", NAMEOF('M - Measures'[Occupancy]), 0)
+				    ,("Загрузка бизнес класса", NAMEOF('M - Measures'[Occupancy business]), 1)
+				    ,("Кол-во полётов", NAMEOF('M - Measures'[Flight cnt]), 2)
+				    ,("Кол-во полётов (есть БК)", NAMEOF('M - Measures'[Flight business cnt]), 3)
+				    ,("Доля полётов в общей массе", NAMEOF('M - Measures'[Flight share]), 4)
+				    // ,("Кол-во мест в самолёте", NAMEOF('M - Measures'[Seats cnt]), 5)
+				    // ,("Кол-во мест в самолёте (есть БК)", NAMEOF('M - Measures'[Seats business cnt]), 6)
+				    // ,("Кол-во выкупленных мест", NAMEOF('M - Measures'[Seats boarding cnt]), 7)
+				    // ,("Кол-во выкупленных мест (есть БК)", NAMEOF('M - Measures'[Seats boarding business cnt]), 8)
+				}
+
+	annotation PBI_Id = 756deca1a80642fd8b9daacbe2fb13b3
+

@@ -1,0 +1,49 @@
+table 'P - Occupancy'
+	lineageTag: 546e93a6-a667-4498-83c8-0fdfd4aba5c1
+
+	column 'P - Occupancy'
+		lineageTag: 71f1f154-53b7-466a-94ab-d3aebf8a0134
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Заказ P - Occupancy'
+
+		relatedColumnDetails
+			groupByColumn: 'Поля: P - Occupancy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Поля: P - Occupancy'
+		isHidden
+		lineageTag: 8a486e6b-605b-4c40-9015-25a52fd8fd7c
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Заказ P - Occupancy'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Заказ P - Occupancy'
+		isHidden
+		formatString: 0
+		lineageTag: 145e982b-3a70-46e8-b139-6c59a5934fc0
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'P - Occupancy' = calculated
+		mode: import
+		source =
+				{
+				    ("По длительности полёта в часах", NAMEOF('Q - Occupancy'[duration_hours]), 0),
+				    ("По часам вылета", NAMEOF('Q - Occupancy'[hour_scheduled_departure]), 1),
+				    ("По модели самолёта", NAMEOF('Q - Occupancy'[aircraft_model]), 2)
+				}
+
+	annotation PBI_Id = a5af3801e3f7457f94229aef80a23a4b
+

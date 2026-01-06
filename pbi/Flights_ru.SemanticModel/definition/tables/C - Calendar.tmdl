@@ -1,0 +1,39 @@
+table 'C - Calendar'
+	lineageTag: fb71980b-96ae-4d29-b862-9a8b7a202a72
+
+	column Date
+		formatString: Short Date
+		lineageTag: a4edde07-2ad1-4e3c-af17-54f1b0147e7d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Date' = STARTOFMONTH('C - Calendar'[Date])
+		formatString: General Date
+		lineageTag: c117b584-6b05-44e4-9e10-5829d3dad463
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week Start Date' = 'C - Calendar'[Date] - WEEKDAY( 'C - Calendar'[Date], 2) + 1
+		formatString: General Date
+		lineageTag: 7cd591ac-7482-41b9-b34b-f17696f4a10a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Date' = STARTOFYEAR('C - Calendar'[Date])
+		formatString: General Date
+		lineageTag: de4c2ade-04fb-4aa1-823e-c485a2056aed
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'C - Calendar' = calculated
+		mode: import
+		source = CALENDAR(MIN('Q - Daily stats'[date]), MAX('Q - Daily stats'[date]))
+
+	annotation PBI_Id = f566c9a1e26842b6abc8184633968870
+

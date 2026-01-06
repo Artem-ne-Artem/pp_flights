@@ -1,0 +1,99 @@
+table 'Q - Pre booking'
+	lineageTag: 63eb1998-3db1-4e96-b3aa-8358886004b4
+
+	column book_dt
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 1ccd34a0-49d8-4dbd-a68d-dfed6f974083
+		summarizeBy: none
+		sourceColumn: book_dt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column scheduled_departure_dt
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: cfa23d46-f880-4dc9-9d4b-37a86230a70a
+		summarizeBy: none
+		sourceColumn: scheduled_departure_dt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ticket_cnt
+		dataType: int64
+		formatString: 0
+		lineageTag: 721e881d-5aef-4c10-9e3c-20be42017e1b
+		summarizeBy: sum
+		sourceColumn: ticket_cnt
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Book mon num' = MONTH('Q - Pre booking'[book_dt])
+		formatString: 0
+		lineageTag: 50b99784-3e3a-4300-a456-8884e0666cb5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Book mon name' = FORMAT('Q - Pre booking'[book_dt], "mmm" ,"ru-RU")
+		lineageTag: 8bef308f-4297-4242-b1d2-1ce9c2c43d57
+		summarizeBy: none
+		sortByColumn: 'Book mon num'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Departure mon num' = MONTH('Q - Pre booking'[scheduled_departure_dt])
+		formatString: 0
+		lineageTag: 316cc803-e54d-414a-9f5f-76e7de7d144f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Departure mon name' = Format('Q - Pre booking'[scheduled_departure_dt], "mmm" ,"ru-RU")
+		lineageTag: 3b6f3169-6575-4ba9-a243-5b59f0d146f4
+		summarizeBy: none
+		sortByColumn: 'Departure mon num'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Generation =
+			DATEDIFF('Q - Pre booking'[book_dt], 'Q - Pre booking'[scheduled_departure_dt], MONTH)
+			// IF(
+			//     'Q - Pre booking'[Departure mon num] >= 'Q - Pre booking'[Book mon num]
+			//     ,'Q - Pre booking'[Departure mon num] - 'Q - Pre booking'[Book mon num]
+			//     ,'Q - Pre booking'[Book mon num] - 'Q - Pre booking'[Departure mon num]
+			// )
+		formatString: 0
+		lineageTag: 01b7e901-2343-441f-8595-15564a04ea3e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Q - Pre booking' = m
+		mode: import
+		source =
+				// let
+				//     Источник = PostgreSQL.Database("localhost", "flights"),
+				//     rep_bookings_pre_booking = Источник{[Schema="rep_bookings",Item="pre_booking"]}[Data]
+				// in
+				//     rep_bookings_pre_booking
+				
+				
+				let
+				    Источник = PostgreSQL.Database("194.87.190.4:5432", "default_db"),
+				    dbt_rep_occupancy = Источник{[Schema="dbt_rep",Item="pre_booking"]}[Data]
+				in
+				    dbt_rep_occupancy
+
+	annotation PBI_NavigationStepName = Навигация
+
+	annotation PBI_ResultType = Table
+
