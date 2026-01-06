@@ -1,0 +1,139 @@
+version: 2
+
+sources:
+  - name: flights
+    database: demo
+    schema: bookings
+    tables:
+      - name: aircrafts
+        description: Самолеты
+        columns: 
+          - name: aircraft_code
+            description: Код самолета IATA
+            tests:
+              - unique
+              - not_null
+          - name: model
+            description: Модель самолета
+          - name: range
+            description: Максимальная длительность поета
+      - name: airports
+        description: Аэропорты
+        columns:
+          - name: airport_code
+            description: Код аэропорта
+            tests:
+              - unique
+              - not_null
+          - name: airport_name
+            description: Название аэропорта
+          - name: city
+            description: Город
+          - name: longitude
+            description: Координаты аэропорта долгота
+          - name: latitude
+            description: Координаты аэропорта широта
+          - name: timezone
+            description: Временная зона аэропорта
+      - name: boarding_passes
+        description: Посадочные талоны
+        columns:
+          - name: ticket_no
+            description: Номер билета
+            tests:
+              - not_null
+          - name: flight_id
+            description: Идентификатор рейса
+            tests:
+              - not_null
+          - name: boarding_no
+            description: Номер посадочного талона
+          - name: seat_no
+            description: Номер места
+      - name: bookings
+        description: Бронирования
+        columns:
+          - name: book_ref
+            description: Номер бронирования
+            tests:
+              - unique
+              - not_null
+          - name: booked_at
+            description: Дата бронирования
+          - name: total_amount
+            description: Полная сумма бронирования
+      - name: flights
+        description: Полеты
+        columns:
+          - name: flight_id
+            description: Идентификатор рейса
+            tests:
+              - not_null
+          - name: flight_no
+            description: Номер рейса
+            tests:
+              - not_null
+          - name: scheduled_departure
+            description: Время вылета по расписанию
+          - name: scheduled_arrival
+            description: Время прилёта по расписанию
+          - name: departure_airport
+            description: Аэропорт отправления
+          - name: arrival_airport
+            description: Аэропорт прибытия
+          - name: status
+            description: Статус рейса
+          - name: aircraft_code
+            description: Код самолета, IATA
+          - name: actual_departure
+            description: Фактическое время вылета
+          - name: actual_arrival
+            description: Фактическое время прилёта
+      - name: seats
+        description: Места
+        columns:
+          - name: aircraft_code
+            description: Код самолета, IATA
+            tests:
+              - not_null
+          - name: seat_no
+            description: Номер места
+            tests:
+              - not_null
+          - name: fare_conditions
+            description: Класс обслуживания
+      - name: ticket_flights
+        description: Перелеты
+        columns:
+          - name: ticket_no
+            description: Номер билета
+            tests:
+               - not_null
+          - name: flight_id
+            description: Идентификатор рейса
+            tests:
+               - not_null
+          - name: fare_conditions
+            description: Класс обслуживания
+          - name: amount
+            description: Стоимость перелета
+      - name: tickets
+        description: Билеты
+        columns:
+          - name: ticket_no
+            description: Номер билета
+            tests:
+              - unique
+              - not_null
+          - name: book_ref
+            description: Номер бронирования
+            tests:
+              - not_null
+          - name: passenger_id
+            tests:
+              - not_null
+            description: Идентификатор пассажира
+          - name: passenger_name
+            description: Имя пассажира
+          - name: contact_data
+            description: Контактные данные пассажира

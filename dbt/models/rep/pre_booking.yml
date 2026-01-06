@@ -1,5 +1,0 @@
-version: 2
-
-models:
-  - name: pre_booking
-    description: "Report model pre_booking tickets count"

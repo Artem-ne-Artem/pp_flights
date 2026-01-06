@@ -1,17 +1,21 @@
 with src_tbl as (
-select		book_id
-			,book_date
-			,ticket_id
-			,flight_id
-			,scheduled_departure
-			,departure_airport
-			,row_number() over(partition by book_id, ticket_id order by scheduled_departure asc) as rn
-from 		{{ ref('flights') }}
+    select * from {{ ref('flights') }}
 )
 
-select 		date(date_trunc('month' ,book_date)) as book_dt
-			,date(date_trunc('month' ,scheduled_departure)) as scheduled_departure_dt
+,flights_with_rn as (
+select		book_id
+			,booked_at
+			,ticket_id
+			,flight_id
+			,scheduled_departure_at
+			,departure_airport
+			,row_number() over(partition by book_id, ticket_id order by scheduled_departure_at asc) as rn
+from 		src_tbl
+)
+
+select 		date(date_trunc('month' ,booked_at)) as book_dt
+			,date(date_trunc('month' ,scheduled_departure_at)) as scheduled_departure_dt
 			,count(ticket_id) as ticket_cnt
-from		src_tbl
+from		flights_with_rn
 where 		rn = 1
-group by 	1,2
+group by 	1, 2
