@@ -12,7 +12,7 @@ dbt_flights:
       user: "{{ env_var('POSTGRES_DWH_USER') }}"
       password: "{{ env_var('POSTGRES_DWH_PASSWORD') }}"
       dbname: demo
-      # Базовая схема, используемая как префикс для моделей, если не переопределено в dbt_project.yml. Например: dev + +schema: stg → dev_stg
+      # Базовая схема, используемая как префикс для моделей, если не переопределено в dbt_project.yml. Например: dev + schema: stg → dev_stg
       schema: bookings
       # Количество потоков/parallelism для выполнения моделей. Обычно 2-8 для dev, можно больше для prod, если база тянет.
       threads: 4

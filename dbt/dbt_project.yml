@@ -1,6 +1,5 @@
 name: 'dbt_flights'
 version: '1.0.0'
-config-version: 2
 
 flags:
   send_anonymous_usage_stats: false
@@ -23,11 +22,13 @@ clean-targets:
 models:
   # имя проекта (оно же name из dbt_project.yml). Всё, что внутри, относится к моделям этого проекта.
   dbt_flights:
+    # это применяется ко всем моделям в текущем проекте
+    +materialized: view
     stg:
       +schema: stg
-      +materialized: view
-    cmd:
+    cdm:
       +schema: cmd
+      # это применяется ко всем моделям в текущем проекте В директории cmd
       +materialized: table
     rep:
       +schema: rep

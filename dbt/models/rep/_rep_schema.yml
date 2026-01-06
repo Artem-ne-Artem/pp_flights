@@ -1,0 +1,66 @@
+version: 2
+
+models:
+  - name: daily_stats
+    description: Витрина с основными ежедневными показателями
+    columns:
+      - name: date
+        description: Дата события
+      - name: book_one_passenger_cnt
+        description: Бронь для одного пассажира, в штуках
+      - name: book_one_passenger_amount
+        description: Бронь для одного пассажира, в деньгах
+      - name: book_several_passenger_cnt
+        description: Бронь для нескольких пассажиров, в штуках
+      - name: book_several_passenger_amount
+        description: Бронь для нескольких пассажиров, в деньгах
+      - name: book_cnt
+        description: Броней всего, в штуках
+      - name: book_amount
+        description: Броней всего, в деньгах
+      - name: flights_cnt
+        description: Количество полётов
+      - name: flights_amount
+        description: Стоимость полётов в деньгах
+      - name: tickets_cnt
+        description: Количество билетов
+  - name: occupancy
+    description: Витрина с коэффициентом заполняемости по направлениям и количеством рейсов
+    columns:
+      - name: flight_number
+        description: Номер рейса
+      - name: departure_city
+        description: Город вылета
+      - name: arrival_city
+        description: Город прибытия
+      - name: departure_airport
+        description: Аэропорт вылета
+      - name: arrival_airport
+        description: Аэропорт прибытия
+      - name: hour_scheduled_departure
+        description: Время (час) вылета по расписанию
+      - name: hour_scheduled_arrival
+        description: Время (час) прибытия по расписанию
+      - name: duration_hours
+        description: Количество часов в полёте
+      - name: aircraft_model
+        description: Модель самолета
+      - name: seats_cnt
+        description: Количество мест всего
+      - name: seats_business_cnt
+        description: Количество мест в бизнес классе
+      - name: seats_cnt_boarding
+        description: Количество посадочных
+      - name: seats_business_cnt_boarding
+        description: Количество посадочных в бизнес классе
+      - name: flight_cnt
+        description: Количество рейсов
+  - name: pre_booking
+    description: Витрина с количеством билетов, забронированных заранее
+    columns:
+      - name: book_dt
+        description: Дата бронирования
+      - name: scheduled_departure_dt
+        description: Дата вылета
+      - name: ticket_cnt
+        description: Количество билет

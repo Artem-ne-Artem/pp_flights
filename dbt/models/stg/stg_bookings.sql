@@ -1,1 +1,0 @@
-select *, now() as create_at from {{ source('flights', 'bookings' )}}
