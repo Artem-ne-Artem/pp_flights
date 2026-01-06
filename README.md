@@ -1,27 +1,29 @@
-## Pet project. Build reporting flights.
+## Проект по пассажирским авиаперевозкам.
 
-#### The project is based on training database "Flights".
-- DWH – cloud Postgres
-- Transformations – dbt
-- Documentation – dbt
-- Jobs – dbt
+#### Проект на основе учебной БД "Авиаперевозки".
+- DWH – Postgres
+- Витрины – Dbt
+- Документация – Dbt
+- Визуализация - Power BI
 #### Layers:
-- Stg – basic transformations
-- Cdm – common data marts
-- Rep – layer for BI services
+- Rep – слой витрин данных для BI системы
+- Cdm – слой витрин данных
+- Stg – слой источников + базовые изменения
 
 <!--[DBT project documentation](https://zb975.us1.dbt.com/accounts/70403103945566/runs/70403122813601/docs/#!/model/model.dbt_flights.flights)-->
 
 <!--[Visualization on Power BI](https://github.com/user-attachments/files/17180126/Flights_en.pdf)-->
-[Visualization on Power BI](https://github.com/user-attachments/files/17180126/Flights_en.pdf)
+[Visualization on Power BI](https://github.com/user-attachments/files/24453176/Flights_ru.pdf)
 
-#### Description database
-A single booking can include multiple tickets, one for each passenger, each of which is issued a separate ticket (tickets).
+#### Описание базы данных
+Одно бронирование может включать несколько билетов, по одному на каждого пассажира, каждый из которых оформляется отдельным билетом (билетами).
 
-A ticket includes one or more flights (ticket_flights).
+Билет включает один или несколько рейсов (билеты_рейсов).
 
-Multiple flights can be included in a ticket when there is no direct flight connecting the departure and destination points (flight with transfers), or when the ticket is taken "round trip".
+Несколько рейсов могут быть включены в билет, если нет прямого рейса, соединяющего пункты отправления и назначения (рейс с пересадками), или если билет оформлен «туда и обратно».
 
-Each flight (flights) goes from one airport (airports) to another. Flights with the same number have the same departure and destination points, but will differ in departure date.
+Каждый рейс (рейсы) следует из одного аэропорта (аэропортов) в другой. Рейсы с одинаковым номером имеют одинаковые пункты отправления и назначения, но различаются датой отправления.
+
+https://postgrespro.ru/docs/postgrespro/9.6/demodb-bookings
 
 ![flights_schema_en](https://github.com/user-attachments/assets/750ecb13-340c-4aa5-b558-b0482f9077ee)
